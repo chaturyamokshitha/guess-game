@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess-game</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-green-950 flex items-center justify-center">
+    <div class="flex flex-col rounded-md bg-green-500 p-8 text-center italic">
+        <h1 class="font-bold text-xl text-white mb-2">Guess a Number from 1 to 100</h1>
+     <div id="test"></div>
+        <div class="mb-4"><input type="text" id="value" class="h-10 w-30 rounded-md mb-4 mt-2">
+            <div>
+        <button id="check" class="bg-white rounded-md h-10 w-20 text-green-800 font-bold">Check</button>
+    <button id="replay" class="bg-white rounded-md h-10 w-20 text-green-800 font-bold hidden ">Replay</button>
+    </div></div>
+        <p id="Chances"><b>You have 5 Chances</b></p>
+    </div>
+    <script>
+        let test=document.getElementById("test");
+         let chances = document.getElementById("Chances");
+         let value = document.getElementById("value");
+          let check = document.getElementById("check");
+            let replay = document.getElementById("replay");
+          let guesses=5;
+         let number = Math.floor(Math.random() * 100) + 1;
+            let pa = document.createElement("p");
+            test.appendChild(pa);
+          console.log(number);
+          function numbercheck(value){
+                let v = parseInt(value);
+            if(v<number)
+                {
+                 
+                   pa.innerHTML = `The value is low`;
+                    guesses--;
+                   
+                }
+                else if(v>number)
+                {
+                    pa.innerHTML = `The value is too high`;
+                     guesses--;
+                }
+                else if(v===number)
+                {
+                     pa.innerHTML = `<b>Congratulations</b>`;
+                      chances.innerHTML = `You have ${guesses} Chances`;
+                       check.style.display = 'none';
+                replay.style.display = 'inline-block';
+                value=" " ;
+                }
+                 chances.innerHTML = `You have ${guesses} Chances`;
+                 if(guesses==0)
+                 {
+                    check.style.display='none';
+                    replay.style.display='inline-block';
+                    chances.innerHTML=`The number is ${number}`;
+                 }
+          };
+          check.addEventListener("click",()=>{
+            numbercheck(value.value);
+            value.value=" ";
+            
+          })
+          replay.addEventListener("click",()=>{
+            guesses=5;
+                number = Math.floor(Math.random() * 100) + 1;
+                console.log(number);
+             numbercheck("");
+            check.style.display = 'inline-block';
+              replay.style.display = 'none';
+               chances.innerHTML = `You have 5 Chances`;
+                pa.innerHTML = " ";
+          })
+        </script>
+</body>
+</html>
